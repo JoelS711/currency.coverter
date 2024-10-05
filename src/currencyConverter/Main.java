@@ -9,7 +9,6 @@ public class Main {
 	public static void main(String[] args) {
 		SearchCurrency consult = new SearchCurrency();
 		int option = 0;
-		double userInput = 0;
 		String menu = """
 				\n***Welcome to currency converter ***
 				\n***Choose the option ***
@@ -29,28 +28,22 @@ public class Main {
 
 			switch (option) {
 			case 1:
-				userInput = getValidUserInput(keyboard, "USD");
-				convertCurrency(consult, "USD", "COP", userInput);
+				convertCurrency(consult, "USD", "COP", keyboard);
 				break;
 			case 2:
-				userInput = getValidUserInput(keyboard, "COP");
-				convertCurrency(consult, "COP", "USD", userInput);
+				convertCurrency(consult, "COP", "USD", keyboard);
 				break;
 			case 3:
-				userInput = getValidUserInput(keyboard, "USD");
-				convertCurrency(consult, "USD", "EUR", userInput);
+				convertCurrency(consult, "USD", "EUR", keyboard);
 				break;
 			case 4:
-				userInput = getValidUserInput(keyboard, "EUR");
-				convertCurrency(consult, "EUR", "USD", userInput);
+				convertCurrency(consult, "EUR", "USD", keyboard);
 				break;
 			case 5:
-				userInput = getValidUserInput(keyboard, "COP");
-				convertCurrency(consult, "COP", "JPY", userInput);
+				convertCurrency(consult, "COP", "JPY", keyboard);
 				break;
 			case 6:
-				userInput = getValidUserInput(keyboard, "JPY");
-				convertCurrency(consult, "JPY", "COP", userInput);
+				convertCurrency(consult, "JPY", "COP", keyboard);
 				break;
 			case 9:
 				System.out.println("Thanks for using our services");
@@ -84,9 +77,10 @@ public class Main {
 		return userInput;
 	}
 	
-	public static void convertCurrency(SearchCurrency consult, String baseCode, String targetCode, double userInput) {
+	public static void convertCurrency(SearchCurrency consult, String baseCode, String targetCode, Scanner keyboard) {
 		Currency currency = consult.consultCurrency(baseCode);
 		Map<String, Double> rates = currency.conversion_rates();
+		double userInput = getValidUserInput(keyboard, baseCode);
 		double rate = rates.get(targetCode);
 		double amount = userInput * rate;
 		System.out.println("Converted amount: " + amount +" "+ targetCode);
