@@ -1,5 +1,6 @@
 package currencyConverter;
 
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		SearchCurrency consult = new SearchCurrency();
 		int option = 0;
-		double amount, rate, userInput;
+		double userInput = 0;
 		String menu = """
 				\n***Welcome to currency converter ***
 				\n***Choose the option ***
@@ -28,70 +29,28 @@ public class Main {
 
 			switch (option) {
 			case 1:
-				String base_code = "USD";
-				String target_code = "COP";
-				Currency currency = consult.consultCurrency(base_code);
-				Map<String, Double> rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "USD");
+				convertCurrency(consult, "USD", "COP", userInput);
 				break;
 			case 2:
-				base_code = "COP";
-				target_code = "USD";
-				currency = consult.consultCurrency(base_code);
-				rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "COP");
+				convertCurrency(consult, "COP", "USD", userInput);
 				break;
 			case 3:
-				base_code = "USD";
-				target_code = "EUR";
-				currency = consult.consultCurrency(base_code);
-				rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "USD");
+				convertCurrency(consult, "USD", "EUR", userInput);
 				break;
 			case 4:
-				base_code = "EUR";
-				target_code = "USD";
-				currency = consult.consultCurrency(base_code);
-				rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "EUR");
+				convertCurrency(consult, "EUR", "USD", userInput);
 				break;
 			case 5:
-				base_code = "COP";
-				target_code = "JPY";
-				currency = consult.consultCurrency(base_code);
-				rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "COP");
+				convertCurrency(consult, "COP", "JPY", userInput);
 				break;
 			case 6:
-				base_code = "JPY";
-				target_code = "COP";
-				currency = consult.consultCurrency(base_code);
-				rates = currency.conversion_rates();
-				System.out.println("Enter amount to convert in "+base_code+": ");
-				userInput = keyboard.nextDouble();
-				rate = rates.get(target_code);
-				amount = userInput * rate;
-				System.out.println("Converted amount: " + amount +" "+ target_code);
+				userInput = getValidUserInput(keyboard, "JPY");
+				convertCurrency(consult, "JPY", "COP", userInput);
 				break;
 			case 9:
 				System.out.println("Thanks for using our services");
@@ -104,6 +63,33 @@ public class Main {
 		}
 		keyboard.close();
 
+	}
+	
+	private static double getValidUserInput(Scanner keyboard, String baseCode) {
+		double userInput =0;
+		while(true) {
+			System.out.print("Enter amount to convert in " + baseCode + ": ");
+			try {
+				userInput = keyboard.nextDouble();
+				if(userInput > 0) {
+					break;
+				}else {
+					System.out.println("Amount must be greater than zero. Please try again.");
+				}
+			}catch(InputMismatchException e) {
+				System.out.println("Invalid input. Please enter a valid number.");
+                keyboard.next();
+			}
+		}
+		return userInput;
+	}
+	
+	public static void convertCurrency(SearchCurrency consult, String baseCode, String targetCode, double userInput) {
+		Currency currency = consult.consultCurrency(baseCode);
+		Map<String, Double> rates = currency.conversion_rates();
+		double rate = rates.get(targetCode);
+		double amount = userInput * rate;
+		System.out.println("Converted amount: " + amount +" "+ targetCode);
 	}
 
 }
