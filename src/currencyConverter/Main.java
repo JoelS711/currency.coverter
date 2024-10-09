@@ -10,14 +10,16 @@ public class Main {
 		SearchCurrency consult = new SearchCurrency();
 		int option = 0;
 		String menu = """
-				\n***Welcome to currency converter ***
+				\n***WELCOME TO CURRENCY CONVERTER ***
 				\n***Choose the option ***
 				1. Dolar(USD) ===> Colombian Peso(COP)
 				2. Colombian Peso(COP) ===> Dolar(USD)
-				3. Dolar(USD) ===> Euro(EUR)
-				4. Euro(EUR) ===> Dolar(USD)
-				5. Colombian Peso(COP) ===>	Japan Yen(JPY)
-				6. Japan Yen(JPY) ===> Colombian Peso(COP)
+				3. Euro(EUR) ===> Colombian Peso(COP)
+				4. Colombian Peso ===> Euro(EUR)
+				5. Dolar(USD) ===> Euro(EUR)
+				6. Euro(EUR) ===> Dolar(USD)
+				7. Colombian Peso(COP) ===>	Japan Yen(JPY)
+				8. Japan Yen(JPY) ===> Colombian Peso(COP)
 				9. Exit
 				\n""";
 		
@@ -34,15 +36,21 @@ public class Main {
 				convertCurrency(consult, "COP", "USD", keyboard);
 				break;
 			case 3:
-				convertCurrency(consult, "USD", "EUR", keyboard);
+				convertCurrency(consult, "EUR", "COP", keyboard);
 				break;
 			case 4:
-				convertCurrency(consult, "EUR", "USD", keyboard);
+				convertCurrency(consult, "COP", "EUR", keyboard);
 				break;
 			case 5:
-				convertCurrency(consult, "COP", "JPY", keyboard);
+				convertCurrency(consult, "USD", "EUR", keyboard);
 				break;
 			case 6:
+				convertCurrency(consult, "EUR", "USD", keyboard);
+				break;
+			case 7:
+				convertCurrency(consult, "COP", "JPY", keyboard);
+				break;
+			case 8:
 				convertCurrency(consult, "JPY", "COP", keyboard);
 				break;
 			case 9:
