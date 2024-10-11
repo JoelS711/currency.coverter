@@ -10,8 +10,8 @@ public class Main {
 		SearchCurrency consult = new SearchCurrency();
 		int option = 0;
 		String menu = """
-				\n***WELCOME TO CURRENCY CONVERTER ***
-				\n***Choose the option ***
+				\n*** WELCOME TO CURRENCY CONVERTER ***
+				\n*** Choose the option to convert ***
 				1. Dolar(USD) ===> Colombian Peso(COP)
 				2. Colombian Peso(COP) ===> Dolar(USD)
 				3. Euro(EUR) ===> Colombian Peso(COP)
